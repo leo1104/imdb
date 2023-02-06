@@ -70,5 +70,6 @@ body{
 .movieCards{
   display: flex;
   justify-content: center;
-  flex: wrap;
+  flex-wrap: wrap;
+  width: 100%;
 }

@@ -6,6 +6,7 @@ import {
 } from "react-router-dom";
 import Home from './components/Home'
 import SearchResult from './components/SearchResult';
+import Movie from './components/Movie';
 
 function App() {
   const router = createBrowserRouter([
@@ -16,6 +17,10 @@ function App() {
     {
       path:'/search/:movie',
       element:<SearchResult/>
+    },
+    {
+      path:'/movie',
+      element:<Movie/>
     }
   ]);
   return (

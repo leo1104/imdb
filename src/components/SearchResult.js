@@ -3,34 +3,49 @@ import React, { useEffect, useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
 
 function SearchResult() {
-  const {movie} = useParams();
+  const {movie} = useParams();//extractor
   const url =`https://imdb-api.com/en/API/Search/k_uy8055ru/${movie}`
 
-const [data, setData] = useState();
+
+const [data, setData] = useState();//initially empty
 useEffect(() => {
   async function fun1() {
-    const response =await axios.get(url)
-    console.log(response);
-    setData(response);
+    const response =await axios.get(url);
+    //fetch
+    // console.log(response.data.results);
+    setData(response.data.results);
   }
 fun1();
 }, [url])
 
+//you cannot map undefined
 
-//what will I get in my console?
-// The executed statement(JSOn) ro the url path itself
-//extract image and title and show to user
+console.log(data);
+
+//conditional mapping ?
+
+// ? acts as a gate=> if there is a value in the array then only open the gate or proceed or else don't proceed
+
   return (
     <div className='movieCards'>
-        <div className='movieCard'>
+        {
+          data?.map((card)=>(
+            <div className='movieCard'>
             <Link className='movieCardLink' to='/'>
-                <img src='null' alt='movie img' className='movieCardImg' />
-                <h1 className='movieCardTitle'>Avengers</h1>
+                <img src={card.image} alt='movie img' className='movieCardImg' />
+                <h1 className='movieCardTitle'>{card.title}</h1>
                 
             </Link>
         </div>
+            ))
+        }
+        
+        
     </div>
   )
 }
 
 export default SearchResult
+
+
+
