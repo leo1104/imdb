@@ -12,7 +12,6 @@ useEffect(() => {
   async function fun1() {
     const response =await axios.get(url);
     //fetch
-    // console.log(response.data.results);
     setData(response.data.results);
   }
 fun1();
@@ -20,7 +19,6 @@ fun1();
 
 //you cannot map undefined
 
-console.log(data);
 
 //conditional mapping ?
 
@@ -31,7 +29,7 @@ console.log(data);
         {
           data?.map((card)=>(
             <div className='movieCard'>
-            <Link className='movieCardLink' to='/'>
+            <Link className='movieCardLink' to={`/movie/${card.id}`}>
                 <img src={card.image} alt='movie img' className='movieCardImg' />
                 <h1 className='movieCardTitle'>{card.title}</h1>
                 
@@ -39,7 +37,6 @@ console.log(data);
         </div>
             ))
         }
-        
         
     </div>
   )

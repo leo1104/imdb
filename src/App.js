@@ -19,7 +19,7 @@ function App() {
       element:<SearchResult/>
     },
     {
-      path:'/movie',
+      path:'/movie/:movieId',
       element:<Movie/>
     }
   ]);
