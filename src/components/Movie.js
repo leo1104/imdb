@@ -5,9 +5,13 @@ import { Link, useParams } from 'react-router-dom'
 function Movie() {
 const {movieId} = useParams();
 
-const url=`https://imdb-api.com/en/API/Title/k_uy8055ru/${movieId}`
+const url=`https://imdb-api.com/en/API/Title/k_5u2bun1l/${movieId}`
+
+const url1 = `https://imdb-api.com/en/API/Trailer/k_5u2bun1l/${movieId}`
 
 const [data, setData] = useState();
+
+const [trailer, setTrailer] = useState();
 
 useEffect(() => {
   async function fun1() {
@@ -19,25 +23,35 @@ useEffect(() => {
 
 }, [url])
 
+useEffect(() => {
+  async function fun1() {
+    const response = await axios.get(url1);
+    console.log(response);
+    setTrailer(response.data)
+  }
+  fun1()
+
+}, [url1])
+
 
   return (
     <div>
       <div className='coverImg'>
-        <img alt='cover' className='coverMainImg'/>
+        <img src={trailer?.thumbnailUrl} alt='cover' className='coverMainImg'/>
       </div>
       <div className='movieBody'>
         <div className='movieContainer'>
           <div className='movieRating'>
-            <img alt='displayPic'/>
+            <img src={data?.image} alt='displayPic'/>
             <p>
-              <span>imdbRating</span>/10
+              <span>{data?.imDbRating}</span>/10
             </p>
           </div>
           <div className='movieDescription'>
-            <h1>title</h1>
-            <p>year</p>
-            <p>genre</p>
-            <p>desc</p>
+            <h1>{data?.title}</h1>
+            <p>{data?.year}</p>
+            <p>{data?.genres}</p>
+            <p>{data?.plot}</p>
           </div>
         </div>
         <div className='cast'>
@@ -46,19 +60,22 @@ useEffect(() => {
             <p>Cast overview, first billed only</p>
           </div>
           <div className='castName'>
-            <div>
-              <Link className='actorLink' to='/'>
+            {data?.actorList?.map((actor)=>(
+              <div>
+              <Link className='actorLink' to={`/actor/${actor.id}`}>
                 <div className='castActors'>
                   <div className='castCircle'>
-                    <img className='cardImg' />
+                    <img src={actor.image} className='cardImg' />
                   </div>
                   <div className='castActorName'>
-                    <h2>actor name</h2>
-                    <p>character</p>
+                    <h2>{actor.name}</h2>
+                    <p>{actor.asCharacter}</p>
                   </div>
                 </div>
               </Link>
             </div>
+            ))}
+            
           </div>
         </div>
       </div>

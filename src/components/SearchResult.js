@@ -4,7 +4,7 @@ import { Link, useParams } from 'react-router-dom'
 
 function SearchResult() {
   const {movie} = useParams();//extractor
-  const url =`https://imdb-api.com/en/API/Search/k_uy8055ru/${movie}`
+  const url =`https://imdb-api.com/en/API/Search/k_5u2bun1l/${movie}`
 
 
 const [data, setData] = useState();//initially empty
